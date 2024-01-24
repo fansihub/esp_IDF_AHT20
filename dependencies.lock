@@ -1,0 +1,21 @@
+dependencies:
+  espressif/aht20:
+    component_hash: 70724d0f35b9842210f670503ae7cb343070016ad31cd710b3747e1a8ba292fe
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.1.0~1
+  espressif/cmake_utilities:
+    component_hash: 351350613ceafba240b761b4ea991e0f231ac7a9f59a9ee901f751bddc0bb18f
+    source:
+      service_url: https://api.components.espressif.com/
+      type: service
+    version: 0.5.3
+  idf:
+    component_hash: null
+    source:
+      type: idf
+    version: 5.1.1
+manifest_hash: 4cc8816be7cd25e8a70a9b5eba3673d8506f0ee7ae3ee46bdcaa005b08e00990
+target: esp32c3
+version: 1.0.0
