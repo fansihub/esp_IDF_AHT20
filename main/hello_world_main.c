@@ -22,10 +22,10 @@ static const char *TAG = "aht20 test";
 
 #define TEST_MEMORY_LEAK_THRESHOLD (-400)
 
-#define I2C_MASTER_SCL_IO 5 /*!< gpio number for I2C master clock */
-#define I2C_MASTER_SDA_IO 4 /*!< gpio number for I2C master data  */
-#define I2C_MASTER_NUM I2C_NUM_0                /*!< I2C port number for master dev */
-#define I2C_MASTER_FREQ_HZ 100000               /*!< I2C master clock frequency */
+#define I2C_MASTER_SCL_IO 5       /*!< gpio number for I2C master clock */
+#define I2C_MASTER_SDA_IO 4       /*!< gpio number for I2C master data  */
+#define I2C_MASTER_NUM I2C_NUM_0  /*!< I2C port number for master dev */
+#define I2C_MASTER_FREQ_HZ 100000 /*!< I2C master clock frequency */
 
 static aht20_dev_handle_t aht20 = NULL;
 
@@ -105,11 +105,15 @@ void app_main(void)
 
     i2c_sensor_ath20_init();
 
-    TEST_ASSERT(ESP_OK == aht20_read_temperature_humidity(aht20, &temperature_raw, &temperature, &humidity_raw, &humidity));
-    ESP_LOGI(TAG, "%-20s: %2.2f %%", "humidity is", humidity);
-    ESP_LOGI(TAG, "%-20s: %2.2f degC", "temperature is", temperature);
+    while (1)
+    {
+        TEST_ASSERT(ESP_OK == aht20_read_temperature_humidity(aht20, &temperature_raw, &temperature, &humidity_raw, &humidity));
+        ESP_LOGI(TAG, "%-20s: %2.2f %%", "humidity is", humidity);
+        ESP_LOGI(TAG, "%-20s: %2.2f degC", "temperature is", temperature);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
 
-    aht20_del_sensor(aht20);
-    ret = i2c_driver_delete(I2C_MASTER_NUM);
-    TEST_ASSERT_EQUAL(ESP_OK, ret);
+    // aht20_del_sensor(aht20);
+    // ret = i2c_driver_delete(I2C_MASTER_NUM);
+    // TEST_ASSERT_EQUAL(ESP_OK, ret);
 }
